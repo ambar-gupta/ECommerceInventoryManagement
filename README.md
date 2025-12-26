@@ -36,10 +36,8 @@ inventory-order-system
 * Spring Boot
 * Spring Data JPA
 * H2 In-Memory Database
-* Liquibase (schema & data loading)
 * RestTemplate (inter-service communication)
 * Maven
-* JUnit 5 & Mockito
 * Lombok
 
 ---
