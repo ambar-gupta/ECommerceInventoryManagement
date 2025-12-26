@@ -168,13 +168,8 @@ GET /inventory/1001
 
 ---
 
-## 🗃️ Database & Liquibase
-
-* Each service uses an **H2 in-memory database**
-* Schema and data are created automatically at startup
-* CSV data is loaded using **Liquibase `<loadData>`**
-
-### H2 Console
+## 🗃️ Database 
+ H2 Console
 
 * Inventory Service: `http://localhost:8081/h2-console`
 * Order Service: `http://localhost:8082/h2-console`
@@ -183,44 +178,11 @@ GET /inventory/1001
 
 ## 🧪 Testing
 
-### Unit Tests
-
-* Service layer tested using **JUnit 5 & Mockito**
-
 ### Integration Tests
 
 * REST endpoints tested using `@SpringBootTest`
-* Uses H2 database
 
 ---
-
-## ▶️ How to Run the Project
-
-### Prerequisites
-
-* Java 17
-* Maven
-
-### Steps
-
-```bash
-git clone <repository-url>
-cd inventory-order-system
-```
-
-#### Start Inventory Service
-
-```bash
-cd inventory-service
-mvn spring-boot:run
-```
-
-#### Start Order Service
-
-```bash
-cd order-service
-mvn spring-boot:run
-```
 
 ## 👤 Author
 
