@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.ambar.OrderService.client.InventoryClient;
@@ -12,6 +13,7 @@ import com.ambar.OrderService.dto.InventoryResponse;
 import com.ambar.OrderService.dto.OrderRequest;
 import com.ambar.OrderService.dto.OrderResponse;
 import com.ambar.OrderService.entity.Order;
+import com.ambar.OrderService.exception.OrderFailedException;
 import com.ambar.OrderService.repo.OrderRepository;
 import com.ambar.OrderService.util.OrderStatus;
 
@@ -68,7 +70,15 @@ public class OrderService {
 	                "Order placed. Inventory reserved."
 	        );
    
-	    } catch (Exception ex) {
+	    } catch (HttpClientErrorException ex) {
+
+	        String inventoryError = ex.getResponseBodyAsString();
+
+	        throw new OrderFailedException(
+	                "Inventory error: " + inventoryError
+	        );
+	    }
+    	catch (Exception ex) {
             throw new RuntimeException("Inventory update failed");
         }
 

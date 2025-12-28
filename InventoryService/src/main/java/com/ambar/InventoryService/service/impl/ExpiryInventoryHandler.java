@@ -9,6 +9,7 @@ import com.ambar.InventoryService.dto.InventoryBatchDto;
 import com.ambar.InventoryService.dto.InventoryResponseDto;
 import com.ambar.InventoryService.dto.OrderRequest;
 import com.ambar.InventoryService.entity.InventoryBatch;
+import com.ambar.InventoryService.exception.InventoryNotFound;
 import com.ambar.InventoryService.repository.InventoryBatchRepository;
 import com.ambar.InventoryService.service.InventoryHandler;
 
@@ -25,6 +26,10 @@ public class ExpiryInventoryHandler implements InventoryHandler {
     public InventoryResponseDto getBatches(Long productId) {
     	
         List<InventoryBatch> allBatchForProduct = batchRepository.findByProductIdOrderByExpiryDateAsc(productId);
+        
+        if(allBatchForProduct.isEmpty()) {
+        	throw new InventoryNotFound("Inventory not found with product id : "+ productId);
+        }
         
         List<InventoryBatchDto> productWithAllBatchResponse = new ArrayList<>();
         for(InventoryBatch batch : allBatchForProduct ) {
